@@ -1,0 +1,16 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container1{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.wrapper{
+    padding: 5px;
+    width: 700px;
+    border: 1px solid black;
+    background-color: antiquewhite;
+}
