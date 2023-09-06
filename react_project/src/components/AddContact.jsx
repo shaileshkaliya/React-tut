@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./AddContact.css";
 
-let AddContact = ({addToList}) => {
-  let data = { name: "", number: "" };
-
-  let list = [];
-  const [contactList, setContactList] = useState(list);
+let AddContact = ({addToList,editContact,updateContact}) => {
+  let data = { name: "", number: "",id:"" };
+  // let btnName = "Add Contact";
+  // const[btn,setBtn] = useState(btnName);
+  // let list = [];
+  // const [contactList, setContactList] = useState(list);
 
   const [contact, setContact] = useState(data);
 
@@ -15,14 +16,30 @@ let AddContact = ({addToList}) => {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    if (contact.name == "" || contact.number == "") {
-      alert("All fields are mandatory");
-    } else {
-        addToList(contact);
-    //   setContactList([...contactList, { ...contact }]);
+      if(editContact){
+        if (contact.name == "" || contact.number == "") {
+          alert("All fields are mandatory");
+        }else{
+          updateContact(contact)
+        }
+      }else{
+        if (contact.name == "" || contact.number == "") {
+          alert("All fields are mandatory");
+        }else{
+          addToList(contact);
+        }
+      }
+      // setBtn(btnName)
       setContact(data);
-    }
+    
   };
+
+  useEffect(()=>{
+    if(editContact){
+      setContact(editContact);
+      // setBtn("Edit");
+    }
+  },[editContact])
   return (
     <div className="form-div">
       <form action="post">
@@ -40,7 +57,7 @@ let AddContact = ({addToList}) => {
           onChange={handleChange}
           placeholder="Enter Number"
         />
-        <input type="submit" value="Add Contact" onClick={handleSubmit} />
+        <input type="submit" value={editContact ? "Edit Video" : "Add Video"} onClick={handleSubmit} />
       </form>
     </div>
   );
